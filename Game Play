@@ -1,59 +1,63 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rock Paper Scissors</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <style>
-    body {
-      background-color: #f7fafc;
-    }
-  </style>
+<title>Rock Paper Scissors</title>
+<style>
+   body {
+     text-align: center;
+   }
+
+   h1 {
+     margin-top: 50px;
+   }
+
+   .choices {
+     display: flex;
+     justify-content: center;
+     margin-top: 30px;
+   }
+
+   .choices button {
+     padding: 10px 20px;
+     margin: 0 10px;
+     font-size: 18px;
+   }
+
+   #result {
+     font-size: 24px;
+     margin-top: 30px;
+   }
+</style>
 </head>
+<body>
+<h1>Rock Paper Scissors</h1>
+<div class="choices">
+<button onclick="playGame('rock')">Rock</button>
+<button onclick="playGame('paper')">Paper</button>
+<button onclick="playGame('scissors')">Scissors</button>
+</div>
+<div id="result"></div>
 
-<body class="flex flex-col items-center justify-center min-h-screen">
-  <div class="max-w-md p-6 bg-white rounded-lg shadow-lg">
-    <h1 class="text-3xl font-bold mb-6">Rock Paper Scissors</h1>
-    <div class="flex justify-around">
-      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" id="rock-btn">Rock</button>
-      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" id="paper-btn">Paper</button>
-      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" id="scissors-btn">Scissors</button>
-    </div>
-    <p id="result" class="mt-4 text-lg font-bold"></p>
-  </div>
+<script>
+   function playGame(playerChoice) {
+     var choices = ['rock', 'paper', 'scissors'];
+     var computerChoice = choices[Math.floor(Math.random() * choices.length)];
 
-  <script>
-    const rockBtn = document.getElementById('rock-btn');
-    const paperBtn = document.getElementById('paper-btn');
-    const scissorsBtn = document.getElementById('scissors-btn');
-    const resultText = document.getElementById('result');
+     var result = '';
+     if (playerChoice === computerChoice) {
+       result = "It's a tie!";
+     } else if (
+       (playerChoice === 'rock' && computerChoice === 'scissors') ||
+       (playerChoice === 'paper' && computerChoice === 'rock') ||
+       (playerChoice === 'scissors' && computerChoice === 'paper')
+     ) {
+       result = 'You win!';
+     } else {
+       result = 'Computer wins!';
+     }
 
-    function play(playerMove) {
-      const moves = ['rock', 'paper', 'scissors'];
-      const computerMove = moves[Math.floor(Math.random() * moves.length)];
-      let result;
-
-      if (playerMove === computerMove) {
-        result = 'It\'s a tie!';
-      } else if (
-        (playerMove === 'rock' && computerMove === 'scissors') ||
-        (playerMove === 'paper' && computerMove === 'rock') ||
-        (playerMove === 'scissors' && computerMove === 'paper')
-      ) {
-        result = 'You win!';
-      } else {
-        result = 'Computer wins!';
-      }
-
-      resultText.textContent = `You chose ${playerMove}, computer chose ${computerMove}. ${result}`;
-    }
-
-    rockBtn.addEventListener('click', () => play('rock'));
-    paperBtn.addEventListener('click', () => play('paper'));
-    scissorsBtn.addEventListener('click', () => play('scissors'));
-  </script>
+     document.getElementById('result').innerHTML = result;
+   }
+</script>
 </body>
-
 </html>
